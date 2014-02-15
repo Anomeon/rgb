@@ -20,21 +20,19 @@ function CreateTrigger() {
 
 function myFunction() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getSheets()[1];
-  var values = 0;
-  for (var i = 0; i < 90; i++) {
-    var value = sheet.getRange(2 + parseInt(i), 5);
-    if (value.isBlank()) {
-    }
-    else {
-      values++;
-    }
-  }
+
+  var current_doc_sheet_organization = ss.getSheets()[1];
+  var current_doc_range_organization = current_doc_sheet_organization.getRange(92,5);
+  var current_doc_value_organization = current_doc_range_organization.getValue();
+
+  var current_doc_sheet_status = ss.getSheets()[0];
+  var current_doc_range_status = current_doc_sheet_status.getRange(1,1);
+  var current_doc_value_status = current_doc_range_status.getValue();
+  
   var consolidated_federal_spreadsheet = SpreadsheetApp.openById('0AgT8raiasqASdDdhdDNXRE5DZDN3ZGU4aHpPX2YtY3c');
   var consolidated_federal_sheet = consolidated_federal_spreadsheet.getSheets()[0];
-  var current_doc_coord_sheet = ss.getSheets()[0];
-  var current_doc_coord_range = current_doc_coord_sheet.getRange(1,1);
-  var current_doc_coord_value = current_doc_coord_range.getValue();
-  var consolidated_federal_range = consolidated_federal_sheet.getRange(current_doc_coord_value, 2);
-  var consolidated_federal_value = consolidated_federal_range.setValue(values + ' / ' + 90);
+  var consolidated_federal_range = consolidated_federal_sheet.getRange(current_doc_value_status,4);
+  var consolidated_federal_value = consolidated_federal_range.setValue(current_doc_value_organization);
+  var consolidated_federal_range_90 = consolidated_federal_sheet.getRange(current_doc_value_status,5);
+  var consolidated_federal_value_90 = consolidated_federal_range.setValue(90);
 }
